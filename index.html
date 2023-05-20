@@ -34,23 +34,14 @@
     <script>
       // Select all the list items on the page and convert to array
       const liArr = Array.from(document.querySelectorAll('li'));
-      //const parent = document.getElementById("parent")
-      //const parent = document.getElementsByTagName("li");
-
-      //const btn = document.querySelector('li');
+ 
       // Filter for only the elements that has the word 'flexbox' in them (case insensitive compare...)
-      //for(let value of liArr){
-       // console.log(value);
-      //}
+    
       const lRes = liArr.filter(liA => liA.innerHTML.includes('Flexbox') || liA.innerHTML.includes('flexbox'));
-     // const fiArr = liArr.filter(function(lia){
-
-      //  return lia.
-     // }
       // map down to a list of time strings
      const tRes = lRes.map(fR => fR.dataset.time);
       // map to an array of seconds
-     const seconds = tRes.map(tR => tR.split(':'));
+     const seconds = tRes.map(tR => tR.split(':')); //the item => ['5','17'] array of 2d arrays
       // reduce to get total
      const res = seconds.reduce(function(total,item){
              
@@ -61,13 +52,14 @@
       // 🔥 This can also be done in a single .reduce(),
       // so first - chain them, then comment out your code and reimplement it.
       // I want to see both implementations.
-
-    //   const full = Array.from(document.querySelectorAll('li')).reduce((total,item) => {
-    //       var arr = Array.from(item.children).filter(liA => liA.innerHTML.includes('Flexbox') 
-    //       || liA.innerHTML.includes('flexbox')).
-    //       map(fR => fR.dataset.time).map(tR => tR.split(':'));
-    //       return total + Number(arr[0])*60 + Number(arr[1]);
-    //   },0);
+      const liArr2 = Array.from(document.querySelectorAll('li'));
+      const res2 = liArr2.reduce((total, liA) => {
+        if (liA.innerHTML.includes('flexbox') || liA.innerHTML.includes('Flexbox')) {
+          const time = liA.dataset.time.split(':');
+          return total + Number(time[0]) * 60 + Number(time[1]);
+        }
+        return total;
+      }, 0)
     </script>
   </body>
 </html>
